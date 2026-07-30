@@ -92,6 +92,33 @@ const SERVICES: ServiceItem[] = [
   }
 ];
 
+const containerVariants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.08,
+      delayChildren: 0.1,
+    },
+  },
+};
+
+const cardVariants = {
+  hidden: {
+    opacity: 0,
+    y: 40,
+    scale: 0.97,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      duration: 0.8,
+      ease: [0.25, 1, 0.5, 1] as const,
+    },
+  },
+};
+
 export default function Services() {
   return (
     <section id="services" className="py-24 relative bg-primary overflow-hidden">
@@ -102,21 +129,46 @@ export default function Services() {
       <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
         {/* Header */}
         <div className="text-center mb-20">
-          <span className="text-xs text-gold tracking-[0.3em] uppercase block mb-3 font-semibold">
+          <motion.span
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            className="text-xs text-gold tracking-[0.3em] uppercase block mb-3 font-semibold"
+          >
             Signature Services
-          </span>
-          <h2 className="text-3xl md:text-5xl font-serif font-light tracking-wide text-white">
+          </motion.span>
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.8, delay: 0.1, ease: [0.25, 1, 0.5, 1] }}
+            className="text-3xl md:text-5xl font-serif font-light tracking-wide text-white"
+          >
             What We Master
-          </h2>
-          <div className="w-12 h-[1px] bg-gold mx-auto mt-6" />
+          </motion.h2>
+          <motion.div
+            initial={{ opacity: 0, scaleX: 0 }}
+            whileInView={{ opacity: 1, scaleX: 1 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.8, delay: 0.25, ease: [0.25, 1, 0.5, 1] }}
+            className="w-12 h-[1px] bg-gold mx-auto mt-6 origin-center"
+          />
         </div>
 
         {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.05 }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
+        >
           {SERVICES.map((service, index) => {
             const Icon = service.icon;
             return (
-              <div
+              <motion.div
+                variants={cardVariants}
                 key={service.title}
                 className="glass-panel p-8 group relative overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:border-gold/30 border border-white/5"
               >
@@ -141,12 +193,12 @@ export default function Services() {
                   {service.description}
                 </p>
 
-                {/* Action arrow element */}
+{/* Action arrow element */}
                 <div className="w-0 group-hover:w-8 h-[1px] bg-gold/50 transition-all duration-500 mt-6" />
-              </div>
+              </motion.div>
             );
           })}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

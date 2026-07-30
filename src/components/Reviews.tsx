@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import { motion } from "framer-motion";
 import { Star, Quote } from "lucide-react";
 import { parseApiJson } from "@/lib/api";
 
@@ -56,6 +57,18 @@ const DEFAULT_REVIEWS: Review[] = [
   }
 ];
 
+const reviewSectionVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.8,
+      ease: [0.25, 1, 0.5, 1] as const,
+    },
+  },
+};
+
 export default function Reviews() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [submittedReviews, setSubmittedReviews] = useState<Review[]>([]);
@@ -102,20 +115,56 @@ export default function Reviews() {
       <div className="absolute top-1/2 right-0 w-[500px] h-[500px] bg-gold-radial opacity-10 pointer-events-none" />
 
       <div className="max-w-5xl mx-auto px-6 relative z-10">
-        <div className="text-center mb-16">
-          <span className="text-xs text-gold tracking-[0.3em] uppercase block mb-3 font-semibold">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.8, ease: [0.25, 1, 0.5, 1] }}
+          className="text-center mb-16"
+        >
+          <motion.span
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            className="text-xs text-gold tracking-[0.3em] uppercase block mb-3 font-semibold"
+          >
             Client Appreciations
-          </span>
-          <h2 className="text-3xl md:text-5xl font-serif font-light tracking-wide text-white">
+          </motion.span>
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.8, delay: 0.1, ease: [0.25, 1, 0.5, 1] }}
+            className="text-3xl md:text-5xl font-serif font-light tracking-wide text-white"
+          >
             Words of Satisfaction
-          </h2>
-          <p className="mt-4 text-sm text-white/60 max-w-2xl mx-auto">
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
+            className="mt-4 text-sm text-white/60 max-w-2xl mx-auto"
+          >
             Real appreciation from real clients who experienced our work firsthand.
-          </p>
-          <div className="w-12 h-[1px] bg-gold mx-auto mt-6" />
-        </div>
+          </motion.p>
+          <motion.div
+            initial={{ opacity: 0, scaleX: 0 }}
+            whileInView={{ opacity: 1, scaleX: 1 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.8, delay: 0.3, ease: [0.25, 1, 0.5, 1] }}
+            className="w-12 h-[1px] bg-gold mx-auto mt-6 origin-center"
+          />
+        </motion.div>
 
-        <div className="relative glass-panel p-8 md:p-16 border border-white/5 overflow-hidden min-h-[300px] flex flex-col justify-between">
+        <motion.div
+          variants={reviewSectionVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
+          className="relative glass-panel p-8 md:p-16 border border-white/5 overflow-hidden min-h-[300px] flex flex-col justify-between"
+        >
           <Quote className="absolute right-8 top-8 w-24 h-24 text-white/5 pointer-events-none" />
           <Quote className="absolute left-8 bottom-8 w-24 h-24 text-white/5 pointer-events-none rotate-180" />
 
@@ -168,7 +217,7 @@ export default function Reviews() {
               </button>
             ))}
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

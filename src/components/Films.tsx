@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "framer-motion";
 import { Youtube } from "lucide-react";
 
 const CHANNEL_URL = "https://youtube.com/@satishphotography1?si=ny0tGouhipROLynC";
@@ -13,20 +14,56 @@ export default function Films() {
       <div className="absolute bottom-1/3 right-0 w-[400px] h-[400px] bg-gold-radial opacity-10 pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
-        <div className="text-center mb-16">
-          <span className="text-xs text-gold tracking-[0.3em] uppercase block mb-3 font-semibold">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.8, ease: [0.25, 1, 0.5, 1] }}
+          className="text-center mb-16"
+        >
+          <motion.span
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            className="text-xs text-gold tracking-[0.3em] uppercase block mb-3 font-semibold"
+          >
             YouTube Channel
-          </span>
-          <h2 className="text-3xl md:text-5xl font-serif font-light tracking-wide text-white">
+          </motion.span>
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.8, delay: 0.1, ease: [0.25, 1, 0.5, 1] }}
+            className="text-3xl md:text-5xl font-serif font-light tracking-wide text-white"
+          >
             Satish Photography YouTube
-          </h2>
-          <p className="mt-4 text-sm text-white/60 max-w-2xl mx-auto">
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
+            className="mt-4 text-sm text-white/60 max-w-2xl mx-auto"
+          >
             Watch and play only official videos from my YouTube channel.
-          </p>
-          <div className="w-12 h-[1px] bg-gold mx-auto mt-6" />
-        </div>
+          </motion.p>
+          <motion.div
+            initial={{ opacity: 0, scaleX: 0 }}
+            whileInView={{ opacity: 1, scaleX: 1 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.8, delay: 0.3, ease: [0.25, 1, 0.5, 1] }}
+            className="w-12 h-[1px] bg-gold mx-auto mt-6 origin-center"
+          />
+        </motion.div>
 
-        <div className="glass-panel overflow-hidden border border-white/5">
+        <motion.div
+          initial={{ opacity: 0, y: 30, scale: 0.98 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: true, amount: 0.1 }}
+          transition={{ duration: 1, delay: 0.15, ease: [0.25, 1, 0.5, 1] }}
+          className="glass-panel overflow-hidden border border-white/5"
+        >
           <div className="relative aspect-video bg-[#0a0a0a]">
             <iframe
               src={CHANNEL_EMBED_URL}
@@ -39,9 +76,15 @@ export default function Films() {
               loading="lazy"
             />
           </div>
-        </div>
+        </motion.div>
 
-        <div className="text-center mt-10">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.7, delay: 0.3, ease: "easeOut" }}
+          className="text-center mt-10"
+        >
           <a
             href={CHANNEL_URL}
             target="_blank"
@@ -51,7 +94,7 @@ export default function Films() {
             <Youtube className="w-4 h-4 text-red-600" />
             <span>Visit my official YouTube channel</span>
           </a>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

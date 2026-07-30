@@ -1,4 +1,4 @@
-"use client";
+  "use client";
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -104,6 +104,33 @@ const FILTERS = [
   "Video Editing",
 ];
 
+const portfolioContainerVariants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.06,
+      delayChildren: 0.1,
+    },
+  },
+};
+
+const portfolioItemVariants = {
+  hidden: {
+    opacity: 0,
+    y: 30,
+    scale: 0.97,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      duration: 0.7,
+      ease: [0.25, 1, 0.5, 1] as const,
+    },
+  },
+};
+
 export default function Portfolio() {
   const [activeFilter, setActiveFilter] = useState("All");
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
@@ -136,19 +163,43 @@ export default function Portfolio() {
       <div className="absolute bottom-1/4 left-0 w-[400px] h-[400px] bg-gold-radial opacity-20 pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
-        {/* Header */}
+{/* Header */}
         <div className="text-center mb-16">
-          <span className="text-xs text-gold tracking-[0.3em] uppercase block mb-3 font-semibold">
+          <motion.span
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            className="text-xs text-gold tracking-[0.3em] uppercase block mb-3 font-semibold"
+          >
             Fine Art Exhibition
-          </span>
-          <h2 className="text-3xl md:text-5xl font-serif font-light tracking-wide text-white">
+          </motion.span>
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.8, delay: 0.1, ease: [0.25, 1, 0.5, 1] }}
+            className="text-3xl md:text-5xl font-serif font-light tracking-wide text-white"
+          >
             Curated Portfolio
-          </h2>
-          <div className="w-12 h-[1px] bg-gold mx-auto mt-6" />
+          </motion.h2>
+          <motion.div
+            initial={{ opacity: 0, scaleX: 0 }}
+            whileInView={{ opacity: 1, scaleX: 1 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.8, delay: 0.25, ease: [0.25, 1, 0.5, 1] }}
+            className="w-12 h-[1px] bg-gold mx-auto mt-6 origin-center"
+          />
         </div>
 
         {/* Filter List */}
-        <div className="flex flex-wrap justify-center gap-2 mb-16 max-w-4xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.1 }}
+          transition={{ duration: 0.7, delay: 0.15, ease: "easeOut" }}
+          className="flex flex-wrap justify-center gap-2 mb-16 max-w-4xl mx-auto"
+        >
           {FILTERS.map((filter) => (
             <button
               key={filter}
@@ -162,21 +213,22 @@ export default function Portfolio() {
               {filter}
             </button>
           ))}
-        </div>
+        </motion.div>
 
         {/* Masonry Grid */}
-        <motion.div 
+        <motion.div
+          variants={portfolioContainerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.05 }}
           layout
           className="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6"
         >
           <AnimatePresence mode="popLayout">
             {filteredItems.map((item) => (
               <motion.div
+                variants={portfolioItemVariants}
                 layout
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ duration: 0.4 }}
                 key={item.id}
                 onClick={() => openLightbox(item.id)}
                 data-cursor="view"
