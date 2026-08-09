@@ -88,7 +88,7 @@ export default function Home() {
               <ThreeHero />
 
               {/* Foreground Hero Content Overlays */}
-              <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 xl:px-10 w-full max-w-[min(92vw,1520px)] mx-auto flex flex-col items-center justify-center h-full pt-16 pb-20 sm:pt-20 lg:pt-24">
+              <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 xl:px-10 w-full max-w-[min(96vw,1800px)] mx-auto flex flex-col items-center justify-center h-full pt-16 pb-20 sm:pt-20 lg:pt-24">
                 
                 {/* Micro Subtitle */}
                 <motion.span

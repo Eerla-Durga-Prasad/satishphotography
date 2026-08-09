@@ -160,6 +160,7 @@ export default function About() {
 
           {/* Storytelling & Stats Container - 7 columns */}
           <motion.div
+            className="lg:col-span-7"
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, amount: 0.2 }}
