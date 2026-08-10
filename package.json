@@ -17,6 +17,7 @@
     "@types/better-sqlite3": "^7.6.13",
     "@types/nodemailer": "^8.0.1",
     "@types/pg": "^8.20.0",
+    "@vercel/analytics": "^2.0.1",
     "better-sqlite3": "^12.11.1",
     "emailjs": "^5.0.2",
     "framer-motion": "^12.42.1",

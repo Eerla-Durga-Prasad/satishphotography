@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Outfit, Playfair_Display } from "next/font/google";
 import "./globals.css";
+import { Analytics } from "@vercel/analytics/react";
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -52,6 +53,7 @@ export default function RootLayout({
     >
       <body className="min-h-full bg-primary text-white selection:bg-gold selection:text-primary">
         {children}
+         <Analytics />
       </body>
     </html>
   );
