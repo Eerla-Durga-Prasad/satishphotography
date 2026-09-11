@@ -14,6 +14,45 @@ export default function Contact() {
   
   const [isSent, setIsSent] = useState(false);
 
+  // Safe helper to track WhatsApp clicks in GA4 without blocking navigation or sending PII
+  const trackWhatsAppClick = (location: string, destinationUrl?: string) => {
+    try {
+      if (typeof window !== "undefined") {
+        // Strip any query parameters or hash to ensure no user-entered text, names,
+        // phone numbers, or messages can ever be passed to analytics
+        let cleanUrl = destinationUrl || "https://wa.me/918008231832";
+        if (cleanUrl.includes("?")) {
+          cleanUrl = cleanUrl.split("?")[0];
+        }
+        if (cleanUrl.includes("#")) {
+          cleanUrl = cleanUrl.split("#")[0];
+        }
+
+        if (typeof (window as any).gtag === "function") {
+          (window as any).gtag("event", "whatsapp_click", {
+            link_location: location,
+            link_url: cleanUrl,
+          });
+        }
+      }
+    } catch {
+      // Fail silently to never block, delay, or prevent WhatsApp navigation
+    }
+  };
+
+  // Safe helper to track phone call clicks in GA4 without blocking or sending PII
+  const trackPhoneClick = (location: string) => {
+    try {
+      if (typeof window !== "undefined" && typeof (window as any).gtag === "function") {
+        (window as any).gtag("event", "phone_click", {
+          link_location: location,
+        });
+      }
+    } catch {
+      // Fail silently so phone calls are never blocked or delayed
+    }
+  };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
@@ -35,6 +74,7 @@ export default function Contact() {
       `Sent via Satish Photography Inquiry Form.`;
 
     const waUrl = `https://wa.me/918008231832?text=${encodeURIComponent(textMsg)}`;
+    trackWhatsAppClick("inquiry_form", "https://wa.me/918008231832");
     setIsSent(true);
     setTimeout(() => {
       window.open(waUrl, "_blank");
@@ -73,6 +113,7 @@ export default function Contact() {
               <div className="space-y-4">
                 <a 
                   href="tel:+918008231832"
+                  onClick={() => trackPhoneClick("contact_section")}
                   className="flex items-start space-x-4 text-white/70 hover:text-gold transition-colors group py-2 min-h-[44px]"
                 >
                   <Phone className="w-4.5 h-4.5 text-gold mt-1" />
@@ -90,6 +131,7 @@ export default function Contact() {
                   href="https://wa.me/918008231832"
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => trackWhatsAppClick("contact_section", "https://wa.me/918008231832")}
                   className="flex items-start space-x-4 text-white/70 hover:text-gold transition-colors group py-2 min-h-[44px]"
                 >
                   <MessageCircle className="w-4.5 h-4.5 text-gold mt-1" />
@@ -259,6 +301,7 @@ export default function Contact() {
         href="https://wa.me/918008231832"
         target="_blank"
         rel="noopener noreferrer"
+        onClick={() => trackWhatsAppClick("floating_button", "https://wa.me/918008231832")}
         className="fixed bottom-6 right-6 z-40 bg-green-600 hover:bg-green-500 text-white p-4 rounded-full shadow-2xl transition-all duration-300 hover:scale-110 flex items-center justify-center group animate-bounce min-h-[56px] min-w-[56px]"
         aria-label="Contact on WhatsApp"
       >

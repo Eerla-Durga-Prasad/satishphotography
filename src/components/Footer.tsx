@@ -10,6 +10,18 @@ export default function Footer() {
     }
   };
 
+  const trackPhoneClick = () => {
+    try {
+      if (typeof window !== "undefined" && typeof (window as any).gtag === "function") {
+        (window as any).gtag("event", "phone_click", {
+          link_location: "footer",
+        });
+      }
+    } catch {
+      // Fail silently so phone call is never blocked or delayed
+    }
+  };
+
   return (
     <footer className="bg-[#050505] border-t border-white/5 py-12">
       <div className="max-w-7xl mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center justify-between gap-8">
@@ -61,6 +73,7 @@ export default function Footer() {
           </a>
           <a
             href="tel:+918008231832"
+            onClick={trackPhoneClick}
             className="text-white/40 hover:text-gold transition-colors duration-300"
             aria-label="Call Link"
           >

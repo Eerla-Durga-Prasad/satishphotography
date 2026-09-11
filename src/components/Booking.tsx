@@ -92,6 +92,17 @@ export default function Booking() {
       }
 
       setIsSuccess(true);
+
+      // Safe GA4 tracking for successful booking submission without PII
+      try {
+        if (typeof window !== "undefined" && typeof (window as any).gtag === "function") {
+          (window as any).gtag("event", "booking_submit", {
+            form_location: "booking_form",
+          });
+        }
+      } catch {
+        // Fail silently so success state is never interrupted
+      }
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : "Something went wrong.";
       setIsError(message);
