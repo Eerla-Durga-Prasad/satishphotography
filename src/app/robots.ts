@@ -12,6 +12,7 @@ export default function robots(): MetadataRoute.Robots {
         allow: [
           "/",
           "/favicon.ico",
+          "/favicon-48.png",
           "/favicon.png",
           "/favicon-192.png",
           "/apple-touch-icon.png",

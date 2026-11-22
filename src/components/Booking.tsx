@@ -20,6 +20,10 @@ const EVENT_TYPES = [
   { value: "Video Editing", label: "Professional Video Color-Grading & Edit" }
 ];
 
+type GtagWindow = Window & {
+  gtag?: (command: string, action: string, params?: Record<string, unknown>) => void;
+};
+
 export default function Booking() {
   const [formData, setFormData] = useState({
     name: "",
@@ -95,10 +99,13 @@ export default function Booking() {
 
       // Safe GA4 tracking for successful booking submission without PII
       try {
-        if (typeof window !== "undefined" && typeof (window as any).gtag === "function") {
-          (window as any).gtag("event", "booking_submit", {
-            form_location: "booking_form",
-          });
+        if (typeof window !== "undefined") {
+          const win = window as GtagWindow;
+          if (typeof win.gtag === "function") {
+            win.gtag("event", "booking_submit", {
+              form_location: "booking_form",
+            });
+          }
         }
       } catch {
         // Fail silently so success state is never interrupted
@@ -115,7 +122,7 @@ export default function Booking() {
   return (
     <section id="booking" className="py-24 relative bg-secondary overflow-hidden">
       {/* Background radial glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gold-radial opacity-15 pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-150 h-150 bg-gold-radial opacity-15 pointer-events-none" />
 
       <div className="max-w-4xl mx-auto px-6 relative z-10">
         {/* Header */}
@@ -129,16 +136,16 @@ export default function Booking() {
           <p className="text-xs text-white/50 tracking-wider max-w-md mx-auto mt-4 leading-relaxed font-light">
             Secure your date for a premium luxury photoshoot experience. Tailored layouts, cinema lens aesthetics, and elegant visual capture.
           </p>
-          <div className="w-12 h-[1px] bg-gold mx-auto mt-6" />
+          <div className="w-12 h-px bg-gold mx-auto mt-6" />
         </div>
 
         {/* Booking Card */}
         <div className="glass-panel-gold p-8 md:p-12 relative overflow-hidden transition-all duration-500">
 
           {/* Form Progress Bar */}
-          <div className="absolute top-0 left-0 w-full h-[3px] bg-white/5">
+          <div className="absolute top-0 left-0 w-full h-0.75 bg-white/5">
             <div
-              className="h-full bg-gradient-to-r from-gold/40 to-gold transition-all duration-500"
+              className="h-full bg-linear-to-r from-gold/40 to-gold transition-all duration-500"
               style={{ width: `${calculateProgress()}%` }}
             />
           </div>
@@ -193,7 +200,7 @@ export default function Booking() {
                       onChange={handleInputChange}
                       required
                       placeholder="e.g. Durgaprasad"
-                      className="w-full bg-[#1c1c1c] border border-white/10 px-4 py-3 min-h-[44px] text-sm text-white placeholder-white/20 focus:outline-none focus:border-gold transition-colors pl-10"
+                      className="w-full bg-[#1c1c1c] border border-white/10 px-4 py-3 min-h-11 text-sm text-white placeholder-white/20 focus:outline-none focus:border-gold transition-colors pl-10"
                     />
                     <User className="w-4 h-4 text-white/20 absolute left-3 top-3.5" />
                   </div>
@@ -211,7 +218,7 @@ export default function Booking() {
                       onChange={handleInputChange}
                       required
                       placeholder="e.g. you@example.com"
-                      className="w-full bg-[#1c1c1c] border border-white/10 px-4 py-3 min-h-[44px] text-sm text-white placeholder-white/20 focus:outline-none focus:border-gold transition-colors pl-10"
+                      className="w-full bg-[#1c1c1c] border border-white/10 px-4 py-3 min-h-11 text-sm text-white placeholder-white/20 focus:outline-none focus:border-gold transition-colors pl-10"
                     />
                     <Mail className="w-4 h-4 text-white/20 absolute left-3 top-3.5" />
                   </div>
@@ -231,7 +238,7 @@ export default function Booking() {
                     onChange={handleInputChange}
                     required
                     placeholder="e.g. +91 99999 99999"
-                    className="w-full bg-[#1c1c1c] border border-white/10 px-4 py-3 min-h-[44px] text-sm text-white placeholder-white/20 focus:outline-none focus:border-gold transition-colors pl-10"
+                    className="w-full bg-[#1c1c1c] border border-white/10 px-4 py-3 min-h-11 text-sm text-white placeholder-white/20 focus:outline-none focus:border-gold transition-colors pl-10"
                   />
                   <User className="w-4 h-4 text-white/20 absolute left-3 top-3.5" />
                 </div>
@@ -247,7 +254,7 @@ export default function Booking() {
                     name="event_type"
                     value={formData.event_type}
                     onChange={handleInputChange}
-                    className="w-full bg-[#1c1c1c] border border-white/10 px-4 py-3 min-h-[44px] text-sm text-white focus:outline-none focus:border-gold transition-colors appearance-none cursor-pointer pl-10 pr-10"
+                    className="w-full bg-[#1c1c1c] border border-white/10 px-4 py-3 min-h-11 text-sm text-white focus:outline-none focus:border-gold transition-colors appearance-none cursor-pointer pl-10 pr-10"
                   >
                     {EVENT_TYPES.map((pkg) => (
                       <option key={pkg.value} value={pkg.value} className="bg-[#111] text-white">
@@ -256,7 +263,7 @@ export default function Booking() {
                     ))}
                   </select>
                   <Award className="w-4 h-4 text-white/20 absolute left-3 top-3.5" />
-                  <div className="absolute right-4 top-4.5 w-0 h-0 border-l-[4px] border-r-[4px] border-t-[4px] border-transparent border-t-white/40 pointer-events-none" />
+                  <div className="absolute right-4 top-4.5 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-white/40 pointer-events-none" />
                 </div>
               </div>
 
@@ -273,7 +280,7 @@ export default function Booking() {
                       value={formData.event_date}
                       onChange={handleInputChange}
                       required
-                      className="w-full bg-[#1c1c1c] border border-white/10 px-4 py-3 min-h-[44px] text-sm text-white focus:outline-none focus:border-gold transition-colors pl-10 dark:[color-scheme:dark]"
+                      className="w-full bg-[#1c1c1c] border border-white/10 px-4 py-3 min-h-11 text-sm text-white focus:outline-none focus:border-gold transition-colors pl-10 dark:scheme-dark"
                     />
                     <Calendar className="w-4 h-4 text-white/20 absolute left-3 top-3.5 pointer-events-none" />
                   </div>
@@ -288,7 +295,7 @@ export default function Booking() {
                       name="event_time"
                       value={formData.event_time}
                       onChange={handleInputChange}
-                      className="w-full bg-[#1c1c1c] border border-white/10 px-4 py-3 min-h-[44px] text-sm text-white focus:outline-none focus:border-gold transition-colors appearance-none cursor-pointer pl-10 pr-10"
+                      className="w-full bg-[#1c1c1c] border border-white/10 px-4 py-3 min-h-11 text-sm text-white focus:outline-none focus:border-gold transition-colors appearance-none cursor-pointer pl-10 pr-10"
                     >
                       <option className="bg-[#111]" value="Morning (06:00 AM)">Morning (06:00 AM)</option>
                       <option className="bg-[#111]" value="Afternoon (12:00 PM)">Afternoon (12:00 PM)</option>
@@ -297,7 +304,7 @@ export default function Booking() {
                       <option className="bg-[#111]" value="Full Day Event">Full Day Event Coverage</option>
                     </select>
                     <Clock className="w-4 h-4 text-white/20 absolute left-3 top-3.5" />
-                    <div className="absolute right-4 top-4.5 w-0 h-0 border-l-[4px] border-r-[4px] border-t-[4px] border-transparent border-t-white/40 pointer-events-none" />
+                    <div className="absolute right-4 top-4.5 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-white/40 pointer-events-none" />
                   </div>
                 </div>
               </div>
@@ -315,7 +322,7 @@ export default function Booking() {
                     onChange={handleInputChange}
                     required
                     placeholder="e.g. Piduguralla, Andhra Pradesh"
-                    className="w-full bg-[#1c1c1c] border border-white/10 px-4 py-3 min-h-[44px] text-sm text-white placeholder-white/20 focus:outline-none focus:border-gold transition-colors pl-10"
+                    className="w-full bg-[#1c1c1c] border border-white/10 px-4 py-3 min-h-11 text-sm text-white placeholder-white/20 focus:outline-none focus:border-gold transition-colors pl-10"
                   />
                   <MapPin className="w-4 h-4 text-white/20 absolute left-3 top-3.5" />
                 </div>
@@ -332,7 +339,7 @@ export default function Booking() {
                   onChange={handleInputChange}
                   rows={4}
                   placeholder="Tell us about your event theme, specific shots desired, or visual style requirements..."
-                  className="w-full bg-[#1c1c1c] border border-white/10 px-4 py-3 min-h-[44px] text-sm text-white placeholder-white/20 focus:outline-none focus:border-gold transition-colors resize-none"
+                  className="w-full bg-[#1c1c1c] border border-white/10 px-4 py-3 min-h-11 text-sm text-white placeholder-white/20 focus:outline-none focus:border-gold transition-colors resize-none"
                 />
               </div>
 
@@ -352,7 +359,7 @@ export default function Booking() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full py-4 min-h-[44px] bg-transparent border border-gold text-gold font-bold text-xs tracking-[0.3em] uppercase hover:bg-gold hover:text-primary transition-all duration-500 flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full py-4 min-h-11 bg-transparent border border-gold text-gold font-bold text-xs tracking-[0.3em] uppercase hover:bg-gold hover:text-primary transition-all duration-500 flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isSubmitting ? (
                     <>

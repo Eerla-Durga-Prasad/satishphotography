@@ -232,7 +232,7 @@ export default function AdminDashboard() {
             <p className="text-[10px] text-white/40 tracking-[0.3em] uppercase mt-2 font-light">
               Satish Photography
             </p>
-            <div className="w-8 h-[1px] bg-gold/60 mx-auto mt-4" />
+            <div className="w-8 h-px bg-gold/60 mx-auto mt-4" />
           </div>
 
           <form onSubmit={handleLogin} className="space-y-5">
@@ -425,7 +425,7 @@ export default function AdminDashboard() {
                   {bookings.map((b) => (
                     <tr
                       key={b.id}
-                      className="border-b border-white/5 hover:bg-white/[0.02] transition-colors cursor-pointer"
+                      className="border-b border-white/5 hover:bg-white/2 transition-colors cursor-pointer"
                       onClick={() => setSelectedBooking(b)}
                     >
                       <td className="px-4 py-3">
@@ -561,14 +561,14 @@ export default function AdminDashboard() {
                 <div>
                   <label className="block text-[9px] tracking-[0.2em] uppercase text-white/30 mb-1">Email</label>
                   <div className="flex items-center space-x-2 text-sm text-white/70">
-                    <Mail className="w-3.5 h-3.5 text-white/20 flex-shrink-0" />
+                    <Mail className="w-3.5 h-3.5 text-white/20 shrink-0" />
                     <span className="break-all">{selectedBooking.email}</span>
                   </div>
                 </div>
                 <div>
                   <label className="block text-[9px] tracking-[0.2em] uppercase text-white/30 mb-1">Phone</label>
                   <div className="flex items-center space-x-2 text-sm text-white/70">
-                    <Phone className="w-3.5 h-3.5 text-white/20 flex-shrink-0" />
+                    <Phone className="w-3.5 h-3.5 text-white/20 shrink-0" />
                     <span>{selectedBooking.phone}</span>
                   </div>
                 </div>
@@ -583,7 +583,7 @@ export default function AdminDashboard() {
                 <div>
                   <label className="block text-[9px] tracking-[0.2em] uppercase text-white/30 mb-1">Event Date</label>
                   <div className="flex items-center space-x-2 text-sm text-white/70">
-                    <Calendar className="w-3.5 h-3.5 text-white/20 flex-shrink-0" />
+                    <Calendar className="w-3.5 h-3.5 text-white/20 shrink-0" />
                     <span>{formatDate(selectedBooking.event_date)}</span>
                   </div>
                 </div>
@@ -596,7 +596,7 @@ export default function AdminDashboard() {
               <div>
                 <label className="block text-[9px] tracking-[0.2em] uppercase text-white/30 mb-1">Location</label>
                 <div className="flex items-center space-x-2 text-sm text-white/70">
-                  <MapPin className="w-3.5 h-3.5 text-white/20 flex-shrink-0" />
+                  <MapPin className="w-3.5 h-3.5 text-white/20 shrink-0" />
                   <span>{selectedBooking.location}</span>
                 </div>
               </div>

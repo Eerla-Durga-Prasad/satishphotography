@@ -111,7 +111,7 @@ export default function About() {
   return (
     <section id="about" className="py-24 relative bg-secondary overflow-hidden">
       {/* Background glow elements */}
-      <div className="absolute top-1/2 left-0 w-[400px] h-[400px] bg-gold-radial opacity-10 pointer-events-none" />
+      <div className="absolute top-1/2 left-0 w-100 h-100 bg-gold-radial opacity-10 pointer-events-none" />
       
       <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
@@ -189,7 +189,7 @@ export default function About() {
               whileInView={{ opacity: 1, scaleX: 1 }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.8, delay: 0.25, ease: [0.25, 1, 0.5, 1] }}
-              className="w-12 h-[1px] bg-gold mb-8 origin-left"
+              className="w-12 h-px bg-gold mb-8 origin-left"
             />
             
             <motion.p
@@ -226,7 +226,7 @@ export default function About() {
                     key={stat.label}
                     className="glass-panel p-5 border border-white/5 text-center relative overflow-hidden group"
                   >
-                    <div className="absolute top-0 left-0 w-full h-[2px] bg-gold/0 group-hover:bg-gold/40 transition-colors" />
+                    <div className="absolute top-0 left-0 w-full h-0.5 bg-gold/0 group-hover:bg-gold/40 transition-colors" />
                     <Icon className="w-4 h-4 text-gold mx-auto mb-2 opacity-60 group-hover:opacity-100 transition-opacity" />
                     <div className="text-2xl font-serif text-white tracking-wide font-light">
                       {stat.value}
@@ -247,7 +247,7 @@ export default function About() {
           whileInView={{ opacity: 1, scaleX: 1 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 1, ease: [0.25, 1, 0.5, 1] }}
-          className="w-full h-[1px] bg-white/5 my-20 origin-center"
+          className="w-full h-px bg-white/5 my-20 origin-center"
         />
 
         {/* Studio Timeline Section */}
@@ -292,7 +292,7 @@ export default function About() {
                 className="relative group pl-8 md:pl-0 border-l border-white/10 md:border-l-0 md:border-t md:pt-8 pt-1 pb-8 md:pb-0"
               >
                 {/* Node circle */}
-                <div className="absolute -left-[6px] top-2 md:left-0 md:-top-[6px] w-[11px] h-[11px] rounded-full bg-gold border border-primary group-hover:scale-125 transition-transform" />
+                <div className="absolute -left-1.5 top-2 md:left-0 md:-top-1.5 w-2.75 h-2.75 rounded-full bg-gold border border-primary group-hover:scale-125 transition-transform" />
                 
                 {/* Year tag */}
                 <span className="text-sm font-mono font-bold text-gold">
