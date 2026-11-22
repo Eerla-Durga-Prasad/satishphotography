@@ -17,14 +17,27 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.satishphotography.com"),
   title: "Satish Photography | Luxury Wedding & Cinematic Photography",
   description: "Exquisite cinematic visual storytelling and luxury wedding photography by Satish in Piduguralla, Andhra Pradesh. Timeless memories, beautifully crafted.",
   keywords: "Satish Photography, Luxury Wedding Photography, Cinematic Wedding Films, Piduguralla, Andhra Pradesh, Portrait Shoot, Pre-Wedding shoots, Baby Shoot, Album Designing",
   authors: [{ name: "Satish Photography" }],
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon.png", type: "image/png", sizes: "96x96" },
+      { url: "/favicon-192.png", type: "image/png", sizes: "192x192" },
+    ],
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+    shortcut: "/favicon.ico",
+  },
+  manifest: "/site.webmanifest",
   openGraph: {
     title: "Satish Photography | Luxury Wedding & Cinematic Photography",
     description: "Exquisite cinematic visual storytelling and luxury wedding photography by Satish in Piduguralla, Andhra Pradesh.",
-    url: "https://satishphotography1.com",
+    url: "https://www.satishphotography.com",
     siteName: "Satish Photography",
     images: [
       {
@@ -37,8 +50,14 @@ export const metadata: Metadata = {
     locale: "en_IN",
     type: "website",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Satish Photography | Luxury Wedding & Cinematic Photography",
+    description: "Exquisite cinematic visual storytelling and luxury wedding photography by Satish in Piduguralla, Andhra Pradesh.",
+    images: ["/assets/wedding.webp"],
+  },
   alternates: {
-    canonical: "https://satishphotography1.com",
+    canonical: "https://www.satishphotography.com",
   },
 };
 
